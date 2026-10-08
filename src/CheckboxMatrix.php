@@ -20,6 +20,18 @@ class CheckboxMatrix extends Field
     public $component = 'checkbox-matrix';
 
     /**
+     * The matrix needs the full form width, so the label is rendered above it by default.
+     *
+     * @var bool
+     */
+    public $stacked = true;
+
+    /**
+     * @var bool
+     */
+    public $fullWidth = true;
+
+    /**
      * @var array<int, MatrixRow>
      */
     protected array $rows = [];
