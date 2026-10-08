@@ -9,6 +9,7 @@
     "production": "mix --production"
   },
   "devDependencies": {
+    "laravel-nova-devtool": "file:vendor/laravel/nova-devtool",
     "lodash": "^4.17.21"
   },
   "dependencies": {}
