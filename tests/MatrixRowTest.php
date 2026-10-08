@@ -11,11 +11,12 @@ final class MatrixRowTest extends TestCase
 {
     public function test_serializes(): void
     {
-        $row = MatrixRow::make(7, 'Ann')->subtitle('@ann')->avatar('https://x.test/a.jpg');
+        $row = MatrixRow::make(7, 'Ann')->subtitle('@ann')->caption('translator')->avatar('https://x.test/a.jpg');
 
         $this->assertSame('7', $row->key());
+        $this->assertSame('Ann', $row->label());
         $this->assertSame(
-            ['key' => '7', 'label' => 'Ann', 'subtitle' => '@ann', 'avatar' => 'https://x.test/a.jpg'],
+            ['key' => '7', 'label' => 'Ann', 'subtitle' => '@ann', 'caption' => 'translator', 'avatar' => 'https://x.test/a.jpg'],
             $row->jsonSerialize(),
         );
     }
@@ -23,7 +24,7 @@ final class MatrixRowTest extends TestCase
     public function test_defaults_to_nulls(): void
     {
         $this->assertSame(
-            ['key' => 'a', 'label' => 'Ann', 'subtitle' => null, 'avatar' => null],
+            ['key' => 'a', 'label' => 'Ann', 'subtitle' => null, 'caption' => null, 'avatar' => null],
             MatrixRow::make('a', 'Ann')->jsonSerialize(),
         );
     }
@@ -45,5 +46,11 @@ final class MatrixRowTest extends TestCase
     {
         $this->assertNull(MatrixRow::make('a', 'Ann')->subtitle('')->jsonSerialize()['subtitle']);
         $this->assertNull(MatrixRow::make('a', 'Ann')->subtitle(null)->jsonSerialize()['subtitle']);
+    }
+
+    public function test_empty_caption_becomes_null(): void
+    {
+        $this->assertNull(MatrixRow::make('a', 'Ann')->caption('')->jsonSerialize()['caption']);
+        $this->assertNull(MatrixRow::make('a', 'Ann')->caption(null)->jsonSerialize()['caption']);
     }
 }

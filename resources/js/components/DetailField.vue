@@ -3,9 +3,11 @@
     <template #value>
       <ul v-if="selectedRows.length > 0" class="ncm-detail">
         <li v-for="row in selectedRows" :key="row.key" class="ncm-detail-row">
-          <MatrixAvatar :row="row" />
+          <MatrixAvatar v-if="options.avatars" :row="row" />
           <div class="ncm-person-text">
             <div class="ncm-label">{{ row.label }}</div>
+            <div v-if="options.subtitles && row.subtitle" class="ncm-subtitle">{{ row.subtitle }}</div>
+            <div v-if="options.captions && row.caption" class="ncm-caption">{{ row.caption }}</div>
             <div class="ncm-chips">
               <span v-for="column in row.columns" :key="column.key" class="ncm-chip">{{ column.label }}</span>
             </div>
@@ -19,7 +21,7 @@
 
 <script>
 import MatrixAvatar from './MatrixAvatar'
-import { toSelection } from '../matrix'
+import { normalizeOptions, toSelection } from '../matrix'
 
 export default {
   components: { MatrixAvatar },
@@ -27,6 +29,10 @@ export default {
   props: ['index', 'resource', 'resourceName', 'resourceId', 'field'],
 
   computed: {
+    options() {
+      return normalizeOptions(this.field.options)
+    },
+
     selectedRows() {
       const selection = toSelection(this.field.value)
       const columns = this.field.columns || []

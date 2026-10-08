@@ -13,6 +13,8 @@ final class MatrixRow implements JsonSerializable
 {
     private ?string $subtitle = null;
 
+    private ?string $caption = null;
+
     private ?string $avatar = null;
 
     private function __construct(
@@ -43,6 +45,19 @@ final class MatrixRow implements JsonSerializable
     }
 
     /**
+     * Third line under the subtitle.
+     *
+     * @param string|null $caption
+     * @return $this
+     */
+    public function caption(?string $caption): self
+    {
+        $this->caption = $caption === '' ? null : $caption;
+
+        return $this;
+    }
+
+    /**
      * Only absolute http(s) URLs are accepted, anything else is dropped.
      *
      * @param string|null $url
@@ -66,7 +81,15 @@ final class MatrixRow implements JsonSerializable
     }
 
     /**
-     * @return array{key: string, label: string, subtitle: string|null, avatar: string|null}
+     * @return string
+     */
+    public function label(): string
+    {
+        return $this->label;
+    }
+
+    /**
+     * @return array{key: string, label: string, subtitle: string|null, caption: string|null, avatar: string|null}
      */
     public function jsonSerialize(): array
     {
@@ -74,6 +97,7 @@ final class MatrixRow implements JsonSerializable
             'key' => $this->key,
             'label' => $this->label,
             'subtitle' => $this->subtitle,
+            'caption' => $this->caption,
             'avatar' => $this->avatar,
         ];
     }

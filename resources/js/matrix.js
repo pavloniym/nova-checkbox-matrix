@@ -42,3 +42,18 @@ export function fromSelection(selection, columns) {
 
   return result
 }
+
+const DEFAULT_OPTIONS = {
+  searchable: false,
+  avatars: true,
+  subtitles: true,
+  captions: true,
+  counters: true,
+}
+
+/**
+ * Fills missing display options with their defaults.
+ */
+export function normalizeOptions(options) {
+  return { ...DEFAULT_OPTIONS, ...(options || {}) }
+}
