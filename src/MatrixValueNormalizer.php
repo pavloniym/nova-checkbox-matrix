@@ -13,7 +13,7 @@ final class MatrixValueNormalizer
      * @param mixed $raw Array or JSON string coming from the request or the model
      * @param array<int, string|int> $rowKeys Declared row keys
      * @param array<int, string> $columnKeys Declared column keys, in display order
-     * @return array<string, list<string>>
+     * @return array<array-key, list<string>> Numeric row keys become ints (PHP array semantics)
      */
     public static function normalize(mixed $raw, array $rowKeys, array $columnKeys): array
     {
