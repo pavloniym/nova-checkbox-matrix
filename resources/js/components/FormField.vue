@@ -14,7 +14,7 @@
         <div v-if="rows.length === 0" class="ncm-empty">{{ __('No rows') }}</div>
         <div v-else-if="visibleRows.length === 0" class="ncm-empty">{{ __('No results found.') }}</div>
 
-        <div v-else class="ncm-scroll" :class="errorClasses">
+        <div v-else class="ncm-scroll" :class="[errorClasses, { 'ncm-scroll--fill': mode === 'action-fullscreen' }]">
           <table class="ncm-table">
             <thead>
               <tr>
@@ -72,7 +72,7 @@ export default {
 
   mixins: [FormField, HandlesValidationErrors],
 
-  props: ['resourceName', 'resourceId', 'field'],
+  props: ['resourceName', 'resourceId', 'field', 'mode'],
 
   data: () => ({ search: '' }),
 
