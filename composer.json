@@ -1,0 +1,57 @@
+{
+    "name": "pavloniym/nova-checkbox-matrix",
+    "description": "A Laravel Nova 5 field: a rows × columns checkbox matrix with search, avatars and per-column counters.",
+    "keywords": [
+        "laravel",
+        "nova",
+        "nova-field",
+        "matrix",
+        "checkbox"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "pavloniym"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^11.0|^12.0"
+    },
+    "require-dev": {
+        "laravel/nova": "^5.0",
+        "laravel/nova-devtool": "^1.7",
+        "phpunit/phpunit": "^11.0"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://nova.laravel.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Pavloniym\\NovaCheckboxMatrix\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Pavloniym\\NovaCheckboxMatrix\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Pavloniym\\NovaCheckboxMatrix\\FieldServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
