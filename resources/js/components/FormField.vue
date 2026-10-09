@@ -66,7 +66,7 @@
 <script>
 import { FormField, HandlesValidationErrors } from 'laravel-nova'
 import MatrixAvatar from './MatrixAvatar'
-import { fromSelection, normalizeOptions, toSelection } from '../matrix'
+import { countChecked, fromSelection, isChecked, normalizeOptions, toSelection, toggle } from '../matrix'
 
 export default {
   components: { MatrixAvatar },
@@ -103,18 +103,7 @@ export default {
     },
 
     counts() {
-      const counts = Object.fromEntries(this.columns.map(column => [column.key, 0]))
-      const rowKeys = new Set(this.rows.map(row => row.key))
-
-      Object.entries(this.value || {}).forEach(([rowKey, set]) => {
-        if (rowKeys.has(rowKey)) {
-          set.forEach(key => {
-            if (key in counts) counts[key]++
-          })
-        }
-      })
-
-      return counts
+      return countChecked(this.value, this.rows.map(row => row.key), this.columns)
     },
   },
 
@@ -124,15 +113,11 @@ export default {
     },
 
     isChecked(rowKey, columnKey) {
-      return Boolean(this.value[rowKey] && this.value[rowKey].has(columnKey))
+      return isChecked(this.value, rowKey, columnKey)
     },
 
     toggle(rowKey, columnKey) {
-      const next = new Set(this.value[rowKey] || [])
-
-      next.has(columnKey) ? next.delete(columnKey) : next.add(columnKey)
-
-      this.value = { ...this.value, [rowKey]: next }
+      this.value = toggle(this.value, rowKey, columnKey)
     },
 
     fill(formData) {

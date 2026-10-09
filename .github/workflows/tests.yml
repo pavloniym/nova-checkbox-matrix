@@ -20,12 +20,27 @@ jobs:
           php: ${{ matrix.php }}
           coverage: none
 
-      # Laravel Nova is a paid package and cannot be installed here; the tests do not need it.
-      - name: Drop Nova dev dependencies
-        run: composer remove --dev laravel/nova laravel/nova-devtool --no-update --no-interaction
+      # Laravel Nova is a paid package and cannot be installed here; these tests do not need it
+      # (tests/Nova skips itself without Nova).
+      - name: Drop Nova dependencies
+        run: |
+          composer remove laravel/nova --no-update --no-interaction
+          composer remove --dev laravel/nova-devtool --no-update --no-interaction
 
       - name: Install dependencies
         run: composer update --no-interaction --prefer-dist --no-progress
 
       - name: Run tests
         run: vendor/bin/phpunit
+
+  javascript:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Run JS tests
+        run: node --test 'tests/js/*.test.mjs'

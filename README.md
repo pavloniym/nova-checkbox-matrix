@@ -29,6 +29,7 @@ use Pavloniym\NovaCheckboxMatrix\CheckboxMatrix;
 use Pavloniym\NovaCheckboxMatrix\MatrixColumn;
 use Pavloniym\NovaCheckboxMatrix\MatrixOptions;
 use Pavloniym\NovaCheckboxMatrix\MatrixRow;
+use Pavloniym\NovaCheckboxMatrix\MatrixValue;
 
 CheckboxMatrix::make('Team', 'members')
     ->columns([
@@ -113,6 +114,7 @@ composer install          # needs access to laravel/nova for the JS build
 npm install
 npm run prod              # builds dist/
 vendor/bin/phpunit
+node --test 'tests/js/*.test.mjs'
 ```
 
 `dist/` is committed so consumers do not need a JS toolchain.

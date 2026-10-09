@@ -21,7 +21,7 @@
 
 <script>
 import MatrixAvatar from './MatrixAvatar'
-import { normalizeOptions, toSelection } from '../matrix'
+import { isChecked, normalizeOptions, toSelection } from '../matrix'
 
 export default {
   components: { MatrixAvatar },
@@ -38,11 +38,11 @@ export default {
       const columns = this.field.columns || []
 
       return (this.field.rows || [])
-        .filter(row => selection[row.key])
         .map(row => ({
           ...row,
-          columns: columns.filter(column => selection[row.key].has(column.key)),
+          columns: columns.filter(column => isChecked(selection, row.key, column.key)),
         }))
+        .filter(row => row.columns.length > 0)
     },
   },
 }
